@@ -1,5 +1,7 @@
+##R code for analysis of functional specificity
+
 rm(list=ls())
-setwd("C:/Users/Marlen Fröhlich/Documents/R")
+setwd("C:/Users/Marlen FrÃ¶hlich/Documents/R")
 fun <- read.table ("orangutan_fun.csv", header=TRUE, sep=",", stringsAsFactors=TRUE)
 xx=as.data.frame(na.omit(fun[, c("species","signal", "setting", "dominance_con", "context", "no_cases", "no_subjects")]))
 
@@ -16,11 +18,11 @@ contr=glmerControl(optimizer="bobyqa", optCtrl=list(maxfun=10000000))
 # collinearity: max vif = 2.75 
 vif(lm(rnorm(nrow(test.data)) ~  species + setting + log(no_cases) + log(no_subjects) , data = test.data))
 
-#run the full model
+#run full model
 mod.fun = lmer(formula = dominance_con ~ species * setting +  context_pl + log(no_cases) + log(no_subjects) +
                +(1|signal),  
                  data = test.data)
-#run the null model
+#run null model
 null.fun = lmer(formula = dominance_con ~ log(no_cases) + log(no_subjects) +
                  +(1|signal),  
                data = test.data)
